@@ -1,5 +1,5 @@
 # AoC2021
-My solutions to the Advent of Code 2021
+My solutions to the Advent of Code
 
 Advent of Code is a fun way to both learn how to deal with various problems, and learning to solve problems in new ways.
 
