@@ -1,4 +1,4 @@
-with open("numbers.txt", "r") as numberfile:
+with open("input.txt", "r") as numberfile:
     results = 0
     maxnumber = 0
     for number in numberfile:

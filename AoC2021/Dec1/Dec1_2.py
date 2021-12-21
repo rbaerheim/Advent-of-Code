@@ -1,6 +1,6 @@
 from collections import deque
 
-with open("numbers.txt", "r") as numberfile:
+with open("input.txt", "r") as numberfile:
     result = 0
     temptotal = 0
     max = 0

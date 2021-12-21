@@ -1,4 +1,4 @@
-with open("uboat_coordinates.txt", "r") as plan:
+with open("input.txt", "r") as plan:
     depth = 0
     position = 0
     aim = 0
@@ -16,4 +16,4 @@ plan.close()
 
 result = depth * position
 
-print(depth, position, result)
+print(result)
