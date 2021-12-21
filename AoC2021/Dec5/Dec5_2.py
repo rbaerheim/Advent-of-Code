@@ -1,10 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-# This code works but uses an enormous amount of time(15 min +)
-
-
-intSect = 0
+result = 0
 
 def line(x0, y0, x1, y1):
         # Bresenham's line algorithm for finding all points between two points in a coordinate system.
@@ -52,20 +49,8 @@ with open("input.txt", "r") as input:
         x2 = int(x2)
         y2 = toCord[1]
         y2 = int(y2)
-
-        ###
-
-        # Use if only horizontal and vertical
-        #if x1 != x2 and y1 != y2:
-        #    continue
-
-        ###
-
-        # Else use this for including this for diagonals of 45 degrees.
         if abs(x2 - x1) != abs(y2 - y1) and x1 != x2 and y1 != y2:
             continue
-
-
         pointsCurr = line(x1, y1, x2, y2)
         for item in pointsCurr:
             intersectList.append(item)
@@ -75,11 +60,10 @@ input.close()
 my_dict = {i:intersectList.count(i) for i in intersectList}
 
 for value in my_dict.values():
- 
     if value > 1:
-        intSect += 1
+        result += 1
 
-print(intSect)
+print(result)
 
 # Only horizaontal and vertical = 5294 intersects
 # Horizontal and vertical including 45 degree diagonals = 21698 intersects

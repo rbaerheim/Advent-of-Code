@@ -24,9 +24,9 @@ with open("input.txt", "r") as input:
                 temp += 1
                 array = np.where(array[:] == num, 0, array)
                 for i in range (5):
-                    row_zeros = np.count_nonzero(array[i:,]) # Counts non-zeros in rows
-                    col_zeros = np.count_nonzero(array[:,i]) # Counts non-zeros in columns
-                    if not row_zeros or not  col_zeros: #check if we have 0 non-zeros
+                    row_zeros = np.count_nonzero(array[i:,])
+                    col_zeros = np.count_nonzero(array[:,i])
+                    if not row_zeros or not  col_zeros:
                         if temp > turn:
                             turn = temp
                             print(num, turn)
