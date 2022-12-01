@@ -10,8 +10,8 @@ for line in input:
             max = temp
         temp = 0
         continue
-    line = int(line)
-    temp += line
+    temp += int(line)
 input.close()
 
 print(max)
+# 69626

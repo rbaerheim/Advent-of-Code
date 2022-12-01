@@ -9,9 +9,10 @@ for line in input:
         carriedList.append(temp)
         temp = 0
         continue
-    line = int(line)
-    temp += line
+    temp += int(line)
 input.close()
 
 carriedList.sort()
 print(carriedList[-1] + carriedList[-2] +carriedList[-3])
+
+# 206780
