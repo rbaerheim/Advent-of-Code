@@ -15,4 +15,4 @@ Also, I prefer the learning aspect of AoC rather than the competition.
 I write good, effective and scalable code slow, rather than bad code fast.
 
 “Any fool can write code that a computer can understand. Good programmers write code that humans can understand.” 
-- Martin Fowler
+-Martin Fowler
