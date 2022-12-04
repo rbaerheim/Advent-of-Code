@@ -14,6 +14,7 @@ var enumLines = File.ReadLines(path, Encoding.UTF8);
 // Total score variable
 int totalScore = 0;
 
+// Character Array on where to split the inputs
 char[] delimiterChars = { ',', '-' };
 
 // Looping through the input lines
