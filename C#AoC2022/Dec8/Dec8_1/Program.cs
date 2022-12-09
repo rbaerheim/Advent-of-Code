@@ -5,24 +5,29 @@ var watch = new Stopwatch();
 watch.Start();
 
 // Total score variable
-int totalScore = 0;
+// int totalScore = 0;
 
 int rowLength = File.ReadLines(@"input.txt").First().Length;
 int colLength = File.ReadLines(@"input.txt").Count();
 
 // Console.WriteLine(rowLength);
 // Console.WriteLine(colLength);
-
-int topdb;
-int rightdb;
-int bottomdb;
-int leftdb;
-int centerdb;
-
-
+/*
+int topDB;
+int rightDB;
+int bottomDB;
+int leftDB;
+int centerDB;
+*/
 
 int[,] treeArray = new int[rowLength, colLength];
-int min = 10;
+int[] colCountingArray = new int[rowLength];
+
+int rowMax = 0;
+// int colMax = 0;
+int rowCurrent = 0;
+// int colCurrent = 0;
+
 int row = 0;
 int column = 0;
 // int testCounter = 1;
@@ -40,10 +45,6 @@ foreach (string line in System.IO.File.ReadLines(@"input.txt"))
         treeArray[row, column] = (int)Char.GetNumericValue(charArray[i]);
 
 
-        if (row == 0 || column == 0 || column == colLength - 1 || row == rowLength - 1)
-        {
-            setOfTreesCoordinates.Add(row.ToString() + column.ToString());
-        }
         column += 1;
     }
 
@@ -54,93 +55,80 @@ foreach (string line in System.IO.File.ReadLines(@"input.txt"))
         continue;
     }
 
-    Console.WriteLine(setOfTreesCoordinates.Count());
 
 
-    for (int r = 1; r < row; r++)
+    for (int r = 0; r < row; r++)
     {
-        for (int c = 1; c < column; c++)
+        for (int c = 0; c < column; c++)
         {
-
-            centerdb = treeArray[r, c];
-            topdb = treeArray[r - 1, c];
-            if (c < 4)
+            if (c == 0)
             {
-                rightdb = treeArray[r, c + 1];
+                rowMax = treeArray[r, c];
+                setOfTreesCoordinates.Add(r.ToString() + c.ToString());
+                continue;
             }
-            if (r < 4)
+            else
             {
-                bottomdb = treeArray[r + 1, c];
+                rowCurrent = treeArray[r, c];
             }
-            leftdb = treeArray[r, c - 1];
-
-
-            min = 10;
-            for (int left = 0; left < c; left++)
+            if (rowCurrent > rowMax)
             {
-                if (treeArray[r, left] < treeArray[r, c] && treeArray[r, left] < min)
+                rowMax = rowCurrent;
+                setOfTreesCoordinates.Add(r.ToString() + c.ToString());
+            }
+            if (r == 0)
+            {
+                colCountingArray[c] = treeArray[r, c];
+                setOfTreesCoordinates.Add(r.ToString() + c.ToString());
+            }
+            else
+            {
+                if (treeArray[r, c] > colCountingArray[c])
                 {
-                    min = treeArray[r, left];
-                    setOfTreesCoordinates.Add(r.ToString() + left.ToString());
+                    colCountingArray[c] = treeArray[r, c];
+                    setOfTreesCoordinates.Add(r.ToString() + c.ToString());
                 }
             }
-            min = 10;
-            for (int right = (rowLength - 1); right > r; right--)
+        }
+        for (int c = rowLength - 1; c >= 0; c--)
+        {
+            if (c == rowLength - 1)
             {
-                if (treeArray[r, right] < treeArray[r, c] && treeArray[r, right] < min)
-                {
-                    min = treeArray[r, right];
-                    setOfTreesCoordinates.Add(r.ToString() + right.ToString());
-                }
+                rowMax = treeArray[r, c];
+                setOfTreesCoordinates.Add(r.ToString() + c.ToString());
+                continue;
             }
-            min = 10;
-            for (int top = 0; top < r; top++)
+            else
             {
-                if (treeArray[top, c] < treeArray[r, c] && treeArray[top, c] < min)
-                {
-                    min = treeArray[top, c];
-                    setOfTreesCoordinates.Add(top.ToString() + c.ToString());
-                }
+                rowCurrent = treeArray[r, c];
             }
-            min = 10;
-            for (int bottom = (colLength - 1); bottom > r; bottom--)
+            if (rowCurrent > rowMax)
             {
-                if (treeArray[bottom, c] < treeArray[r, c] && treeArray[bottom, r] < min)
+                rowMax = rowCurrent;
+                setOfTreesCoordinates.Add(r.ToString() + c.ToString());
+            }
+        }
+    }
+    for (int r = rowLength - 1; r >= 0; r--)
+    {
+        for (int c = 0; c < column; c++)
+        {
+            if (r == rowLength - 1)
+            {
+                colCountingArray[c] = treeArray[r, c];
+                setOfTreesCoordinates.Add(r.ToString() + c.ToString());
+            }
+            else
+            {
+                if (treeArray[r, c] > colCountingArray[c])
                 {
-                    min = treeArray[bottom, r];
-                    setOfTreesCoordinates.Add(bottom.ToString() + c.ToString());
+                    colCountingArray[c] = treeArray[r, c];
+                    setOfTreesCoordinates.Add(r.ToString() + c.ToString());
                 }
             }
         }
     }
-
-    /*
-    if (row < 100)
-    {
-        if (testCounter == 10)
-        {
-            break;
-        }
-
-        testCounter += 1;
-        row += 1;
-        if (testCounter == 9)
-        {
-            for (int i = 0; i < row; i++)
-            {
-                for (int j = 0; j < column; j++)
-                {
-                    Console.Write(treeArray[i, j]);
-                }
-                Console.WriteLine();
-            }
-        }
-        continue;
-    }
-    break;
-    */
 }
-
 // Prints the totalScore to console
 // Console.WriteLine(totalScore);
 
