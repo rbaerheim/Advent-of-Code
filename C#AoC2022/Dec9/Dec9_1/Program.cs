@@ -5,33 +5,34 @@ var watch = new Stopwatch();
 watch.Start();
 
 // Total score variable
-// int totalScore = 0;
+int totalScore = 0;
 
+// Variables for the coordinates of the knots on the rope
 int TAIL_X = 0;
 int TAIL_Y = 0;
-
 int HEAD_X = 0;
 int HEAD_Y = 0;
 
-int testCounter = 0;
-
+// Dictionary containing the visited coordinates
 var visitedCoordinates = new Dictionary<(int, int), int>() { { (TAIL_X, TAIL_Y), 1 } };
 
+// Variables to store the inputs
 int movement;
-
 string direction;
 
 
 // Looping through the input and reading the input lines
 foreach (string line in System.IO.File.ReadLines(@"input.txt"))
 {
-    testCounter += 1;
     // Trim away newlines etc
     line.Trim();
+
+    // Split input into a string array and getting the values in variables
     string[] words = line.Split(" ");
     direction = words[0];
     movement = Int32.Parse(words[1].ToString());
 
+    // Switch/Case for checking if rope i pulled up, down, right or left.
     switch (direction)
     {
         case "U":
@@ -295,25 +296,10 @@ foreach (string line in System.IO.File.ReadLines(@"input.txt"))
             }
             break;
     }
-
-    /*
-    if (testCounter == 1)
-    {
-        Console.WriteLine($"Last direction: {direction}");
-        Console.WriteLine($"Last movement steps: {movement}");
-        foreach (KeyValuePair<(int, int), int> kvp in visitedCoordinates)
-        {
-            Console.WriteLine($"KEY: {kvp.Key.ToString()} Value: {kvp.Value}");
-        }
-        break;
-    }
-    */
 }
 
-Console.WriteLine(visitedCoordinates.Count());
-// Prints the totalScore to console
-// Console.WriteLine(totalScore);
+// Stops timer and prints the totalScore to console and elapsed time to console
+totalScore = visitedCoordinates.Count();
+Console.WriteLine($"TCoordinates visited by the tail: {totalScore}, Code runtime: {watch.ElapsedMilliseconds}");
 
-// Stops the benchmarking and prints it to the console.
-watch.Stop();
-// Console.WriteLine(watch.ElapsedMilliseconds);
+// * * TCoordinates visited by the tail: 6044, Code runtime: 16
