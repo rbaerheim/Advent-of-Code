@@ -47,14 +47,9 @@ class Monkey
             case "*":
                 newValue = firstValue * secondValue;
                 break;
-            case "/":
-                newValue = firstValue / secondValue;
-                break;
             default:
                 throw new Exception();
         }
-
-        newValue = newValue / 3;
 
         monkey._currentItems[index] = newValue;
 
