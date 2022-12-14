@@ -5,26 +5,24 @@ namespace Dec11_1;
 
 class Monkey
 {
-    public int Id { get; private set; }
+    public Int64 Id { get; private set; }
     public string[] Operation { get; set; }
-    private readonly List<int> _currentItems = new();
-    public IEnumerable<int> CurrentItems => _currentItems.AsReadOnly();
-    public int Test { get; set; }
-    public int MonkeyTrueId { get; set; }
-    public int MonkeyFalseId { get; set; }
-    public int inspectedItems { get; set; } = 0;
+    private readonly List<Int64> _currentItems = new();
+    public IEnumerable<Int64> CurrentItems => _currentItems.AsReadOnly();
+    public Int64 MonkeyTrueId { get; set; }
+    public Int64 MonkeyFalseId { get; set; }
+    public Int64 inspectedItems { get; set; } = 0;
 
 
-    public Monkey(int id, string[] operation, int test, int monkeyTrueId, int monkeyFalseId)
+    public Monkey(Int64 id, string[] operation, Int64 monkeyTrueId, Int64 monkeyFalseId)
     {
         Id = id;
         Operation = operation;
-        Test = test;
         MonkeyTrueId = monkeyTrueId;
         MonkeyFalseId = monkeyFalseId;
     }
 
-    public int test(int worryLevel, int divisibleBy)
+    public Int64 test(Int64 worryLevel, Int64 divisibleBy)
     {
         if (worryLevel % divisibleBy == 0)
         {
@@ -33,9 +31,9 @@ class Monkey
         return MonkeyFalseId;
     }
 
-    public int operationOnItem(Monkey monkey, int index, int firstValue, string mathOperator, int secondValue)
+    public Int64 operationOnItem(Monkey monkey, int index, Int64 firstValue, string mathOperator, Int64 secondValue)
     {
-        int newValue;
+        Int64 newValue;
         switch (mathOperator)
         {
             case "+":
@@ -54,20 +52,49 @@ class Monkey
         monkey._currentItems[index] = newValue;
 
         return newValue;
-
     }
 
-    public void addToCurrentItems(int item)
+    public void addToCurrentItems(Int64 item)
     {
         _currentItems.Add(item);
     }
 
-    public void removeFromCurrentItems(int item)
+    public void removeFromCurrentItems(Int64 item)
     {
         _currentItems.Remove(item);
     }
-    public int getValue(int index)
+    public Int64 getValue(int index)
     {
         return _currentItems[index];
+    }
+
+    public Int64 getGCD(Monkey monkey)
+    {
+        Int64 result = 0;
+        var list = monkey._currentItems;
+        if (list.Count() > 0)
+        {
+            result = list[0];
+
+            for (int i = 1; i < list.Count(); i++)
+            {
+                result = gcdTwoNumbers(list[i], result);
+
+                if (result == 1)
+                {
+                    return 1;
+                }
+            }
+        }
+        return result;
+    }
+
+    public Int64 gcdTwoNumbers(Int64 a, Int64 b)
+    {
+        if (a == 0)
+        {
+            return b;
+        }
+        return gcdTwoNumbers(b % a, a);
     }
 }
