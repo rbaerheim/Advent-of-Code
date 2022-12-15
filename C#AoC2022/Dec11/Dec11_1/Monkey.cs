@@ -59,7 +59,6 @@ class Monkey
         monkey._currentItems[index] = newValue;
 
         return newValue;
-
     }
 
     public void addToCurrentItems(int item)
