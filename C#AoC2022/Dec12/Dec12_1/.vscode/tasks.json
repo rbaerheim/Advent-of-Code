@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Dec1/Dec1_1/Dec1.csproj",
+                "${workspaceFolder}/Dec12_1.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Dec1/Dec1_1/Dec1.csproj",
+                "${workspaceFolder}/Dec12_1.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/Dec1/Dec1_1/Dec1.csproj"
+                "${workspaceFolder}/Dec12_1.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
