@@ -14,7 +14,8 @@ class Program
         int numOfRows = input.Count();
 
         char[] characterArray = new char[numOfColumns];
-        int counter = 0;
+        int row = 0;
+
         // Total score variable
         int solution = 0;
         int[,] map = new int[numOfRows, numOfColumns];
@@ -24,26 +25,28 @@ class Program
             // Trim away newlines etc
             line.Trim();
             characterArray = line.ToCharArray();
-            for (int i = 0; i < numOfColumns; i++)
+            for (int column = 0; column < numOfColumns; column++)
             {
-                switch (characterArray[i])
+                switch (characterArray[column])
                 {
                     case 'S':
-                        map[counter, i] = 100;
+                        map[row, column] = 100;
                         break;
                     case 'E':
-                        map[counter, i] = 1000;
+                        map[row, column] = 1000;
                         break;
                     default:
-                        map[counter, i] = char.ToUpper(characterArray[i]) - 64;
+                        map[row, column] = char.ToUpper(characterArray[column]) - 64;
                         break;
                 }
+                Console.Write(map[row, column] + ",");
             }
-            counter += 1;
-            // Stops timer and prints the solution to console and elapsed time to console
-            Console.WriteLine($": {solution}, Code runtime: {watch.ElapsedMilliseconds}");
+            Console.WriteLine();
+            row += 1;
         }
-        Console.WriteLine(map[1, 1]);
+
+        // Stops timer and prints the solution to console and elapsed time to console
+        Console.WriteLine($": {solution}, Code runtime: {watch.ElapsedMilliseconds}");
         // * * 
     }
 }
