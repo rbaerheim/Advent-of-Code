@@ -16,7 +16,8 @@ class Program
         int numOfColumns = input.First().Length + 2;
         int numOfRows = input.Count() + 2;
 
-        // More variables used
+        // Variables used
+        var solution = 0;
         int row = 0;
         int currentRow = 0;
         int currentColumn = 0;
@@ -31,9 +32,6 @@ class Program
         // Queue and hashset used
         Queue<(int, int, int)> vertexQueue = new();
         HashSet<(int, int, int)> vertexHashSet = new();
-
-        // Total score variable
-        int solution = 0;
 
         // Map for storing all letters (numbers)
         int[,] map = new int[numOfRows, numOfColumns];

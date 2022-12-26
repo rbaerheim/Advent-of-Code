@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Dec12_1;
+namespace Dec12_2;
 class Program
 {
     static void Main(string[] args)
@@ -16,7 +16,8 @@ class Program
         int numOfColumns = input.First().Length + 2;
         int numOfRows = input.Count() + 2;
 
-        // More variables used
+        // Variables used
+        var solution = 500;
         int row = 0;
         int currentRow = 0;
         int currentColumn = 0;
@@ -34,9 +35,6 @@ class Program
         Queue<(int, int, int)> vertexQueue = new();
         HashSet<(int, int, int)> vertexHashSet = new();
         List<(int, int)> startPositionsList = new();
-
-        // Total score variable
-        int solution = 500;
 
         // Map for storing all letters (numbers)
         int[,] map = new int[numOfRows, numOfColumns];
