@@ -157,6 +157,6 @@ class Program
         // Stops timer and prints the solution to console and elapsed time to console
         Console.WriteLine($"Shortest number of steps: {solution}, Code runtime: {watch.ElapsedMilliseconds}");
 
-        // * *    Shortest number of steps: 504, Code runtime: 23    * *
+        // * *    Shortest number of steps: 500, Code runtime: 195    * *
     }
 }
