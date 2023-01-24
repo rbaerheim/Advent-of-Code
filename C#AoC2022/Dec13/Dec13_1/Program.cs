@@ -14,15 +14,15 @@ class Program
         var input = System.IO.File.ReadLines(@"input.txt");
 
         // Variables used
-        long solution = 0;
+        double solution = 0;
 
         // Counter used for every other input
-        long counter = 0;
-        long pairNum = 0;
+        double counter = 0;
+        double pairNum = 0;
 
 
-        long left = 0;
-        long right = 0;
+        double left = 0;
+        double right = 0;
 
 
         // Looping through the input and reading the input lines
@@ -44,7 +44,7 @@ class Program
                 }
                 else
                 {
-                    left = Int64.Parse(lineTrimmed);
+                    left = double.Parse(lineTrimmed);
                 }
                 continue;
             }
@@ -56,27 +56,48 @@ class Program
                 }
                 else
                 {
-                    right = Int64.Parse(lineTrimmed);
+                    right = double.Parse(lineTrimmed);
                 }
                 pairNum++;
-                if (right.ToString().Length < left.ToString().Length)
-                {
-
-                }
             }
-            long lengthDifference = left.ToString().Length - right.ToString().Length;
+
+            Int128 tempRight = (Int128)right;
+            Int128 tempLeft = (Int128)left;
+
+            int numRight = 0;
+            int numLeft = 0;
+
+            Console.WriteLine(left);
+            Console.WriteLine(right);
+
+            while (tempRight > 0)
+            {
+                tempRight = tempRight / 10;
+                numRight++;
+            }
+
+            while (tempLeft > 0)
+            {
+                tempLeft = tempLeft / 10;
+                numLeft++;
+            }
+
+            double lengthDifference = numLeft - numRight;
 
             if (lengthDifference > 0)
             {
-                long powerOfTen = (long)Math.Pow(10, lengthDifference);
+                double powerOfTen = Math.Pow(10, lengthDifference);
                 right = right * powerOfTen;
             }
             else if (lengthDifference < 0)
             {
                 lengthDifference = Math.Abs(lengthDifference);
-                long powerOfTen = (long)Math.Pow(10, lengthDifference);
+                double powerOfTen = Math.Pow(10, lengthDifference);
                 left = left * powerOfTen;
             }
+
+
+            Console.WriteLine(lengthDifference);
             Console.WriteLine(pairNum);
             Console.WriteLine($"Left: {left}, Right: {right}");
             Console.WriteLine();
@@ -86,6 +107,7 @@ class Program
 
             if (right > left)
             {
+                Console.WriteLine(pairNum);
                 solution += pairNum;
             }
             // break;
@@ -93,6 +115,10 @@ class Program
 
         // Stops timer and prints the solution to console and elapsed time to console
         Console.WriteLine($"Solution: {solution}, Code runtime: {watch.ElapsedMilliseconds}");
+
+        // 6828 to high
+        // 5117 to low
+        // 6127 to high
 
         // * *    SOLUTION STRING    * *
     }
