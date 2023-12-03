@@ -12,7 +12,7 @@ fn main() {
             }
         }
     }
-    println!("Result: {}", result) // 2683
+    println!("Result: {}", result) // 49710
 }
 
 fn read_input_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
