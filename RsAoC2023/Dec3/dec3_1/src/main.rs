@@ -22,8 +22,8 @@ fn main() {
                 }
             }
         }
-        let mut row_num = matrix.len();
-        let mut col_num = matrix[0].len();
+        let row_num = matrix.len();
+        let col_num = matrix[0].len();
 
         for row in 1..row_num - 1 {
             for col in 1..col_num - 1 {
@@ -55,7 +55,7 @@ fn main() {
                     }
                 }
                 if !num.is_empty() && keep_number && !matrix[row][col].is_numeric() {
-                    let mut number  = num.parse::<i32>();
+                    let number  = num.parse::<i32>();
                     match number {
                         Ok(number) => result += number,
                         Err(e) => println!("Failed to parse number: {}", e),
