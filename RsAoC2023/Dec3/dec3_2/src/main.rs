@@ -3,9 +3,7 @@ use std::io::{self, BufRead};
 use std::path::Path;
 
 fn main() {
-    let mut result: i32 = 0; // 71770908 to low , 512519057 68313164
-    let mut num1: String = String::new();
-    let mut num2: String = String::new();
+    let mut result: i32 = 0;
     let mut matrix: Vec<Vec<char>> = Vec::new();
     if let Ok(input) = read_input_lines("input.txt") {
         for line in input {
@@ -28,65 +26,15 @@ fn main() {
         for row in 1..row_num - 1 {
             for col in 1..col_num - 1 {
                 if matrix[row][col] == '*' {
-                    let indexes:Vec<(usize, usize)> = get_number_indexes(&matrix, row, col);
-                    if indexes.len() == 2
-                    {
-                        num1.push(matrix[indexes[0].0][indexes[0].1]);
-                        if matrix[indexes[0].0][(indexes[0].1) - 1].is_numeric() {
-                            num1.insert(0,matrix[indexes[0].0][(indexes[0].1) - 1]);
-                            if matrix[indexes[0].0][(indexes[0].1) - 2].is_numeric() {
-                                num1.insert(0, matrix[indexes[0].0][(indexes[0].1) - 2]);
-                            }
-                        }
-
-                        // if matrix[indexes[0].0][(indexes[0].1) - 2].is_numeric() {
-                        //     num1.insert(0, matrix[indexes[0].0][(indexes[0].1) - 2]);
-                        // }
-
-                        if matrix[indexes[0].0][(indexes[0].1) + 1].is_numeric() {
-                            num1.push(matrix[indexes[0].0][(indexes[0].1) + 1]);
-                            if matrix[indexes[0].0][(indexes[0].1) + 2].is_numeric() {
-                                num1.push(matrix[indexes[0].0][(indexes[0].1) + 2]);
-
-                            }
-                        }
-
-                        // if matrix[indexes[0].0][(indexes[0].1) + 2].is_numeric() {
-                        //     num1.push(matrix[indexes[0].0][(indexes[0].1) + 2]);
-                        //
-                        // }
-                        num2.push(matrix[indexes[1].0][indexes[1].1]);
-                        if matrix[indexes[1].0][(indexes[1].1) - 1].is_numeric() {
-                            num2.insert(0,matrix[indexes[1].0][(indexes[1].1) - 1]);
-                            if matrix[indexes[1].0][(indexes[1].1) - 2].is_numeric() {
-                                num2.insert(0, matrix[indexes[1].0][(indexes[1].1) - 2]);
-                            }
-                        }
-
-                        // if matrix[indexes[1].0][(indexes[1].1) - 2].is_numeric() {
-                        //     num2.insert(0, matrix[indexes[1].0][(indexes[1].1) - 2]);
-                        // }
-
-                        if matrix[indexes[1].0][(indexes[1].1) + 1].is_numeric() {
-                            num2.push(matrix[indexes[1].0][(indexes[1].1) + 1]);
-                            if matrix[indexes[1].0][(indexes[1].1) + 2].is_numeric() {
-                                num2.push(matrix[indexes[1].0][(indexes[1].1) + 2]);
-                            }
-                        }
-
-                        // if matrix[indexes[1].0][(indexes[1].1) + 2].is_numeric() {
-                        //     num2.push(matrix[indexes[1].0][(indexes[1].1) + 2]);
-                        // }
-
-                        result += (num1.parse::<i32>().unwrap() * num2.parse::<i32>().unwrap());
-                        num1.clear();
-                        num2.clear()
+                    let indexes:Vec<String> = get_number_indexes(&matrix, row, col);
+                    if indexes.len() == 2 {
+                        result += indexes[0].parse::<i32>().unwrap() * indexes[1].parse::<i32>().unwrap()
                     }
                 }
             }
         }
     }
-    println!("Result: {}", result) // 2683
+    println!("Result: {}", result) // 72514855
 }
 
 fn read_input_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
@@ -95,44 +43,63 @@ fn read_input_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>
     Ok(io::BufReader::new(file).lines())
 }
 
-fn get_number_indexes(matrix_2d: &Vec<Vec<char>>, row: usize, col: usize) -> Vec<(usize, usize)> {
+fn get_number_indexes(matrix_2d: &Vec<Vec<char>>, row: usize, col: usize) -> Vec<String> {
     let mut coordinates:Vec<(usize, usize)> = Vec::new();
-    let mut north: bool = false;
-    let mut south: bool = false;
-    let mut west: bool = false;
-    let mut east: bool = false;
-    if matrix_2d[row - 1][col].is_numeric() && coordinates.len() < 2 && !north {
+    let mut numbers:Vec<String> = Vec::new();
+    let mut iterator: usize = 0;
+    let mut checked_indexes:Vec<(usize, usize)> = Vec::new();
+
+    if matrix_2d[row - 1][col].is_numeric() {
         coordinates.push((row - 1, col));
-        north = !north
     }
-    if matrix_2d[row + 1][col].is_numeric() && coordinates.len() < 2 && !south {
+    if matrix_2d[row + 1][col].is_numeric() {
         coordinates.push((row + 1, col));
-        south = !south
     }
-    if matrix_2d[row][col - 1].is_numeric() && coordinates.len() < 2 && !west {
+    if matrix_2d[row][col - 1].is_numeric() {
         coordinates.push((row, col - 1));
-        west = !west
     }
-    if matrix_2d[row][col + 1].is_numeric() && coordinates.len() < 2 && !east {
+    if matrix_2d[row][col + 1].is_numeric() {
         coordinates.push((row, col + 1));
-        east = !east
     }
-    if matrix_2d[row - 1][col - 1].is_numeric() && coordinates.len() < 2 && !north {
+    if matrix_2d[row - 1][col - 1].is_numeric() {
         coordinates.push((row - 1, col - 1));
-        north = !north
     }
-    if matrix_2d[row + 1][col - 1].is_numeric() && coordinates.len() < 2 && !south {
+    if matrix_2d[row + 1][col - 1].is_numeric() {
         coordinates.push((row + 1, col - 1));
-        south = !south
     }
-    if matrix_2d[row - 1][col + 1].is_numeric() && coordinates.len() < 2 && !north{
+    if matrix_2d[row - 1][col + 1].is_numeric() {
         coordinates.push((row - 1, col + 1));
-        north = !north
     }
-    if matrix_2d[row + 1][col + 1].is_numeric() && coordinates.len() < 2 && !south{
+    if matrix_2d[row + 1][col + 1].is_numeric() {
         coordinates.push((row + 1, col + 1));
-        south = !south
     }
 
-    return coordinates
+    for coordinate in coordinates {
+        let mut num_dupe:bool = false;
+        let mut number:String = String::new();
+        while matrix_2d[coordinate.0][coordinate.1 - iterator].is_numeric() {
+            if checked_indexes.iter().any(|&i| i == (coordinate.0, coordinate.1 - iterator)) {
+                num_dupe = true;
+                break
+            }
+            number.insert(0,matrix_2d[coordinate.0][coordinate.1 - iterator]);
+            checked_indexes.push((coordinate.0, coordinate.1 - iterator));
+            iterator = iterator + 1;
+        }
+        iterator = 1;
+        while matrix_2d[coordinate.0][coordinate.1 + iterator].is_numeric() {
+            if checked_indexes.iter().any(|&i| i == (coordinate.0, coordinate.1 + iterator)) {
+                num_dupe = true;
+                break
+            }
+            number.push(matrix_2d[coordinate.0][coordinate.1 + iterator]);
+            checked_indexes.push((coordinate.0, coordinate.1 + iterator));
+            iterator = iterator + 1;
+        }
+        iterator = 0;
+        if !num_dupe {
+            numbers.push(number);
+        }
+    }
+        return numbers
 }
