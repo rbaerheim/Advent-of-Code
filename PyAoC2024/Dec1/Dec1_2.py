@@ -1,28 +1,10 @@
-input = open("input.txt")
+from collections import Counter
 
-left = []
-right = []
-solution = 0
-similarities = {}
+with open("input.txt") as file:
+    data = [list(map(int, line.strip().split())) for line in file]
 
-for line in input:
-    line = line.strip().split('   ')
-    left.append(int(line[0]))
-    right.append(int(line[1]))
-    print(line)
+left, right = zip(*data)
+right_counts = Counter(right)
 
-
-for i in range(len(left)):
-    similarities[left[i]] = 0
-
-for i in range(len(right)):
-    if right[i] in similarities:
-        similarities[right[i]] += 1
-
-for key, value in similarities.items():
-    if value > 0:
-        solution += key * value
-
-print(solution)
-
-input.close()
+print(sum(num * right_counts[num] for num in left))
+# 19097157

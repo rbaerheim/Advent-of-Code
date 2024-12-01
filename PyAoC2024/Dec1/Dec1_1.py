@@ -1,22 +1,8 @@
-input = open("input.txt")
+with open("input.txt") as file:
+    data = [list(map(int, line.strip().split())) for line in file]
 
-left = []
-right = []
-solution = 0
+left, right = zip(*data)
+left, right = sorted(left), sorted(right)
 
-for line in input:
-    line = line.strip().split('   ')
-    left.append(int(line[0]))
-    right.append(int(line[1]))
-    print(line)
-
-left.sort()
-right.sort()
-
-for i in range(len(left)):
-    solution += abs(left[i] - right[i])
-
-print(solution)
-
-
-input.close()
+print(sum(abs(left - right) for left, right in zip(left, right)))
+# 2113135
