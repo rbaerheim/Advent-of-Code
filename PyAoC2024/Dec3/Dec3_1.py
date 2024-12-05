@@ -11,4 +11,4 @@ matches = re.findall(pattern, text)
 for x, y in matches:
     solution += int(x) * int(y)
 
-print(solution)
+print(solution) # 188116424

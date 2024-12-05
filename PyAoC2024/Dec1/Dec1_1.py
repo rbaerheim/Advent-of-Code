@@ -4,5 +4,6 @@ with open("input.txt") as file:
 left, right = zip(*data)
 left, right = sorted(left), sorted(right)
 
-print(sum(abs(left - right) for left, right in zip(left, right)))
-# 2113135
+solution = sum(abs(left - right) for left, right in zip(left, right))
+
+print(solution) # 2113135

@@ -23,4 +23,4 @@ for match in matches:
 for x, y in match_tuples:
     solution += x * y
 
-print(solution)
+print(solution) # 104245808

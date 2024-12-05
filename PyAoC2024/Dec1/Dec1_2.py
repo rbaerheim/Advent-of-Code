@@ -6,5 +6,6 @@ with open("input.txt") as file:
 left, right = zip(*data)
 right_counts = Counter(right)
 
-print(sum(num * right_counts[num] for num in left))
-# 19097157
+solution = sum(num * right_counts[num] for num in left)
+
+print(solution) # 19097157
