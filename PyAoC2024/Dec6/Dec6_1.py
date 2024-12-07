@@ -1,17 +1,36 @@
 puzzle_map = []
-guard_exit = False
-up = True
-down = False
-right = False
-left = False
 visited = set()
+direction = "up"
 first_iter = True
 solution = 0
-exited = 0
 
-import time
-
-t0 = time.time()
+def move_guard(the_map, position, current_direction):
+    new_direction = current_direction
+    if current_direction == "up":
+        if the_map[position[0] - 1][position[1]] == "#":
+            position = (position[0], position[1])
+            new_direction = "right"
+        else:
+            position = (position[0] - 1, position[1])
+    elif current_direction == "right":
+        if the_map[position[0]][position[1] + 1] == "#":
+            position = (position[0], position[1])
+            new_direction = "down"
+        else:
+            position = (position[0], position[1] + 1)
+    elif current_direction == "down":
+        if the_map[position[0] + 1][position[1]] == "#":
+            position = (position[0], position[1])
+            new_direction = "left"
+        else:
+            position = (position[0] + 1, position[1])
+    elif current_direction == "left":
+        if the_map[position[0]][position[1] - 1] == "#":
+            position = (position[0], position[1])
+            new_direction = "up"
+        else:
+            position = (position[0], position[1] - 1)
+    return new_direction, position
 
 with open('input.txt', 'r', encoding='utf-8-sig') as file:
     for line in file:
@@ -23,95 +42,14 @@ with open('input.txt', 'r', encoding='utf-8-sig') as file:
     for x, row in enumerate(puzzle_map):
         for y, col in enumerate(row):
             if puzzle_map[x][y] == '^':
-                guard_position = ("up", x, y)
+                guard_position = (x, y)
                 visited.add(guard_position)
-    matrix_length = len(puzzle_map[0])
-    matrix_height = len(puzzle_map)
 
-    for row in range(1, matrix_length - 1):
-        for column in range(1, matrix_height - 1):
-            visited = set()
-            changed = False
-            if puzzle_map[row][column] != '#':
-                puzzle_map[row][column] = '#'
-                changed = True
-            guard_exit = False
-            while not guard_exit:
-                if up:
-                    for i in range(matrix_height):
-                        if puzzle_map[guard_position[1] - 1][guard_position[2]] == '0':
-                            exited += 1
-                            guard_exit = True
-                            break
-                        if puzzle_map[guard_position[1] - 1][guard_position[2]] == '#':
-                            guard_position = ("up", guard_position[1], guard_position[2])
-                            if guard_position in visited:
-                                solution += 1
-                                guard_exit = True
-                                break
-                            visited.add(guard_position)
-                            up = False
-                            right = True
-                            break
-                        else:
+    while True:
+        direction, guard_position = move_guard(puzzle_map, guard_position, direction)
+        if puzzle_map[guard_position[0]][guard_position[1]] == "0":
+            break
+        visited.add(guard_position)
 
-                            visited.add(guard_position)
-                elif right:
-                    for i in range(matrix_height):
-                        if puzzle_map[guard_position[1]][guard_position[2] + 1] == '0':
-                            guard_exit = True
-                            exited += 1
-                            break
-                        if puzzle_map[guard_position[1]][guard_position[2] + 1] == '#':
-                            right = False
-                            down = True
-                            break
-                        else:
-                            guard_position = ("right", guard_position[1], guard_position[2] + 1)
-                            if guard_position in visited:
-                                solution += 1
-                                guard_exit = True
-                                break
-                            visited.add(guard_position)
-                elif down:
-                    for i in range(matrix_height):
-                        if puzzle_map[guard_position[1] + 1][guard_position[2]] == '0':
-                            guard_exit = True
-                            exited += 1
-                            break
-                        if puzzle_map[guard_position[1] + 1][guard_position[2]] == '#':
-                            down = False
-                            left = True
-                            break
-                        else:
-                            guard_position = ("down", guard_position[1] + 1, guard_position[2])
-                            if guard_position in visited:
-                                solution += 1
-                                guard_exit = True
-                                break
-                            visited.add(guard_position)
-                elif left:
-                    for i in range(matrix_height):
-                        if puzzle_map[guard_position[1]][guard_position[2] - 1] == '0':
-                            guard_exit = True
-                            exited += 1
-                            break
-                        if puzzle_map[guard_position[1]][guard_position[2] - 1] == '#':
-                            left = False
-                            up = True
-                            break
-                        else:
-                            guard_position = ("left", guard_position[1], guard_position[2] - 1)
-                            if guard_position in visited:
-                                solution += 1
-                                guard_exit = True
-                                break
-                            visited.add(guard_position)
-            if changed:
-                puzzle_map[row][column] = '.'
-
-
+solution = len(visited)
 print(solution) # 5242
-t1 = time.time()
-print("Exited: ", exited)
-print(t1-t0)
